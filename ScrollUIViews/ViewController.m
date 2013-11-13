@@ -27,7 +27,7 @@
     _mCollectionView.delegate = self;
     _mCollectionView.dataSource = self;
     
-    //[_mCollectionView registerClass:[ViewCell class] forCellWithReuseIdentifier:@"ViewCell"];
+    
     
     _videos = [[NSMutableArray alloc] init];
     
@@ -53,7 +53,7 @@
 }
 
 - (void)fetchedData:(NSData *)responseData {
-    //parse out the json data
+
     NSError* error;
     NSDictionary* json = [NSJSONSerialization
                           JSONObjectWithData:responseData
@@ -63,23 +63,15 @@
     
     NSDictionary * feed = [json objectForKey:@"feed"];
     
-    // Print each item in NSDictionary feed
     for (NSString *s in feed) {
         NSLog(@"feed: %@", s );
     }
     
-    NSLog(@"\n" );  // Extra space
+    NSLog(@"\n" );
     
     NSArray * entry = [feed objectForKey:@"entry"];
+ 
     
-    /* for (NSString *s in entry) {
-     NSLog(@"entry: %@", s );
-     }*/
-    
-    
-    ////////////////////////////////////////
-    // Get first youtube object
-    ////////////////////////////////////////
     NSDictionary * node = [entry objectAtIndex:0];
     
     for (NSString *s in node) {
@@ -100,9 +92,7 @@
     NSLog(@"thumURL: %@", [thumb objectForKey:@"url"] );
     
     
-    ////////////////////////////////////////
-    // Loop app entry nodes
-    ////////////////////////////////////////
+
     
     for (NSDictionary *e in entry) {
         
@@ -127,7 +117,7 @@
         
         NSString *mediaDescription = [[media objectForKey:@"media$description"] objectForKey:@"$t"];
         
-        //NSLog(@"author name: %@", authorName);
+        
         
         NSDictionary * thumb = [thumbArray objectAtIndex:2];
         NSLog(@"thumURL: %@", [thumb objectForKey:@"url"] );
@@ -185,13 +175,13 @@
     
     Video *vidObject = [_videos objectAtIndex:indexPath.row];
     
-    //fit text in label
+    
     cell.title.numberOfLines = 2;
 
     cell.title.text = [vidObject.title stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
     [cell.title sizeToFit];
     
-    //set image
+    
     [cell.image setImageWithURL:[NSURL URLWithString:vidObject.imageURL]
                    placeholderImage:[UIImage imageNamed:@"placeholder.png"]];
     
